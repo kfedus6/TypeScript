@@ -38,8 +38,31 @@ function getSum(n1?: number, n2?: number): string {
    }
 }
 
-
 console.log(getSum(4, 13)) //Ответ: 17
 console.log(getSum(4)) //Ответ: 4
 console.log(getSum()) //Ответ: 0
-*/ 
+*/
+var nums = [1, 2, 3, 4, 5, 6, 7];
+function numb(arr) {
+    var maxNum = Math.max.apply(Math, arr);
+    var minNum = Math.min.apply(Math, arr);
+    var res = arr.reduce(function (sum, current) {
+        return sum + current;
+    });
+    var newArr = [];
+    newArr.push(minNum, maxNum, res / arr.length);
+    return newArr;
+}
+console.log(numb(nums));
+function words(str) {
+    var strSplit = str.split(' ');
+    var word = strSplit.reduce(function (a, b) { return (b.length > a.length) ? b : a; });
+    var arrStr = [];
+    arrStr.push(strSplit.length, word);
+    return arrStr;
+}
+console.log(words('hello google'));
+function n(str) {
+    return str.match(/\d/g);
+}
+console.log(n('ascas323f3cx23'));
