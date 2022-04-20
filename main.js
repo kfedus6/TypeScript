@@ -1,68 +1,51 @@
 //let x: number = 2;
 //let y: boolean = true;
 //console.log(x + y);
-//string number boolean null undefined array
-// +TS tuple, Enum, Any, Never
-// type
-//let words: string[] = ["hello", "workd", "pasha"] // typeof words == array
-//let objects: any[] = ['5', 12, true]
-//typeof - возвращает тип данных (строка)
-//void - когда функция ничего не возвращает
-/*
-function send(name?: string): void {
-   if (name) {
-      console.log(`name:${name}`)
-   } else {
-      console.log('name not enter')
-   }
-}
-
-send()
-*/
-/*
-function getInfoId(n: any): void {
-   console.log(`ваш ид ${n}`);
-}
-
-getInfoId(3) // Ваш ид 3
-getInfoId("4") //Ваш ид 4
-*/
-/*
-function getSum(n1?: number, n2?: number): string {
-   if (n1 && n2) {
-      return (`Ответ: ${17}`)
-   } else if (n1) {
-      return `Ответ: ${n1}`
-   } else {
-      return `Ответ: ${0}`
-   }
-}
-
-console.log(getSum(4, 13)) //Ответ: 17
-console.log(getSum(4)) //Ответ: 4
-console.log(getSum()) //Ответ: 0
-*/
-var nums = [1, 2, 3, 4, 5, 6, 7];
-function numb(arr) {
-    var maxNum = Math.max.apply(Math, arr);
-    var minNum = Math.min.apply(Math, arr);
-    var res = arr.reduce(function (sum, current) {
-        return sum + current;
+var arrUser = [];
+var addUser = function () {
+    var newLogin = prompt('Login:');
+    var newPassword = +prompt('Password:');
+    arrUser[arrUser.length] = { login: newLogin, password: newPassword };
+    return arrUser;
+};
+var seeBalance = function () {
+    var login = prompt('Login:');
+    var password = +prompt('Password:');
+    var sum = { sum: 0 };
+    arrUser.filter(function (item) {
+        if (item.login === login && item.password === password) {
+            Object.assign(item, sum);
+            console.log("".concat(item.login, ": ").concat(item.sum));
+        }
+        else {
+            console.log("неверний логин или пароль");
+        }
     });
-    var newArr = [];
-    newArr.push(minNum, maxNum, res / arr.length);
-    return newArr;
-}
-console.log(numb(nums));
-function words(str) {
-    var strSplit = str.split(' ');
-    var word = strSplit.reduce(function (a, b) { return (b.length > a.length) ? b : a; });
-    var arrStr = [];
-    arrStr.push(strSplit.length, word);
-    return arrStr;
-}
-console.log(words('hello google'));
-function n(str) {
-    return str.match(/\d/g);
-}
-console.log(n('ascas323f3cx23'));
+    return arrUser;
+};
+var menu;
+var exit;
+do {
+    menu = parseInt((prompt("1-Открыть счет\n 2-Посмотреть баланс\n 3-Снять деньги с баланса\n 4-Пополнить баланс\n 5-Выйти")));
+    switch (menu) {
+        case 1: {
+            addUser();
+            console.log(arrUser);
+            break;
+        }
+        case 2: {
+            seeBalance();
+            console.log(arrUser);
+            break;
+        }
+        case 5: {
+            exit = true;
+            console.log('Ви вийшли');
+            break;
+        }
+        default: {
+            console.log('error');
+            break;
+        }
+    }
+} while (!exit);
