@@ -5,23 +5,49 @@ var arrUser = [];
 var addUser = function () {
     var newLogin = prompt('Login:');
     var newPassword = +prompt('Password:');
-    arrUser[arrUser.length] = { login: newLogin, password: newPassword };
+    var sum = 0;
+    arrUser[arrUser.length] = { login: newLogin, password: newPassword, sum: sum };
     return arrUser;
 };
-var seeBalance = function () {
+var watchBalance = function () {
     var login = prompt('Login:');
     var password = +prompt('Password:');
-    var sum = { sum: 0 };
     arrUser.filter(function (item) {
         if (item.login === login && item.password === password) {
-            Object.assign(item, sum);
             console.log("".concat(item.login, ": ").concat(item.sum));
         }
         else {
-            console.log("неверний логин или пароль");
+            console.log('неверний логин или пароль');
+        }
+    });
+};
+var takeMoney = function () {
+    var login = prompt('Login:');
+    var password = +prompt('Password:');
+    arrUser.forEach(function (item) {
+        if (item.login === login && item.password === password) {
+            var money = +prompt('Снять деньги с баланса:');
+            item.sum -= money;
+            console.log("".concat(item.login, ": ").concat(item.sum));
+        }
+        else {
+            console.log('неверний логин или пароль');
         }
     });
     return arrUser;
+};
+var addSum = function () {
+    var login = prompt('Login:');
+    arrUser.forEach(function (item) {
+        if (item.login === login) {
+            var money = +prompt('Пополнить баланс:');
+            item.sum += money;
+            console.log("".concat(item.login, ": ").concat(item.sum));
+        }
+        else {
+            console.log('неверний логин');
+        }
+    });
 };
 var menu;
 var exit;
@@ -29,13 +55,19 @@ do {
     menu = parseInt((prompt("1-Открыть счет\n 2-Посмотреть баланс\n 3-Снять деньги с баланса\n 4-Пополнить баланс\n 5-Выйти")));
     switch (menu) {
         case 1: {
-            addUser();
-            console.log(arrUser);
+            console.log(addUser());
             break;
         }
         case 2: {
-            seeBalance();
-            console.log(arrUser);
+            watchBalance();
+            break;
+        }
+        case 3: {
+            takeMoney();
+            break;
+        }
+        case 4: {
+            addSum();
             break;
         }
         case 5: {

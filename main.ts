@@ -212,7 +212,7 @@ enum, interface, type | ?
 interface user {
    login: string,
    password: number,
-   sum?: number
+   sum: number
 }
 
 let arrUser: Array<user> = [];
@@ -220,41 +220,73 @@ let arrUser: Array<user> = [];
 const addUser = (): Array<user> => {
    let newLogin = prompt('Login:');
    let newPassword = +prompt('Password:');
-   arrUser[arrUser.length] = { login: newLogin, password: newPassword }
+   let sum = 0
+   arrUser[arrUser.length] = { login: newLogin, password: newPassword, sum: sum }
    return arrUser;
 }
 
-const seeBalance = (): Array<user> => {
+const watchBalance = (): void => {
    let login = prompt('Login:');
    let password = +prompt('Password:');
-   let sum = { sum: 0 }
-
    arrUser.filter(item => {
       if (item.login === login && item.password === password) {
-         Object.assign(item, sum);
          console.log(`${item.login}: ${item.sum}`);
       } else {
-         console.log("неверний логин или пароль")
+         console.log('неверний логин или пароль');
+      }
+   })
+}
+
+const takeMoney = (): Array<user> => {
+   let login = prompt('Login:');
+   let password = +prompt('Password:');
+   arrUser.forEach(item => {
+      if (item.login === login && item.password === password) {
+         let money = +prompt('Снять деньги с баланса:');
+         item.sum -= money;
+         console.log(`${item.login}: ${item.sum}`)
+      } else {
+         console.log('неверний логин или пароль');
       }
    })
    return arrUser;
 }
 
+const addSum = () => {
+   let login = prompt('Login:');
+   arrUser.forEach(item => {
+      if (item.login === login) {
+         let money = +prompt('Пополнить баланс:');
+         item.sum += money;
+         console.log(`${item.login}: ${item.sum}`)
+      } else {
+         console.log('неверний логин');
+      }
+   })
+}
 
-let menu: number;
-let exit: boolean;
+type nb = number | boolean
+
+let menu: nb;
+let exit: nb;
 
 do {
    menu = parseInt((prompt("1-Открыть счет\n 2-Посмотреть баланс\n 3-Снять деньги с баланса\n 4-Пополнить баланс\n 5-Выйти")))
    switch (menu) {
       case 1: {
-         addUser();
-         console.log(arrUser)
+         console.log(addUser());
          break;
       }
       case 2: {
-         seeBalance();
-         console.log(arrUser)
+         watchBalance()
+         break;
+      }
+      case 3: {
+         takeMoney()
+         break;
+      }
+      case 4: {
+         addSum()
          break;
       }
       case 5: {
