@@ -208,7 +208,7 @@ enum, interface, type | ?
    Логин
 5-Выйти
 */
-
+/* 
 interface user {
    login: string,
    password: number,
@@ -228,7 +228,7 @@ const addUser = (): Array<user> => {
 const watchBalance = (): void => {
    let login = prompt('Login:');
    let password = +prompt('Password:');
-   arrUser.filter(item => {
+   arrUser.forEach(item => {
       if (item.login === login && item.password === password) {
          console.log(`${item.login}: ${item.sum}`);
       } else {
@@ -252,7 +252,7 @@ const takeMoney = (): Array<user> => {
    return arrUser;
 }
 
-const addSum = () => {
+const addSum = (): void => {
    let login = prompt('Login:');
    arrUser.forEach(item => {
       if (item.login === login) {
@@ -265,7 +265,7 @@ const addSum = () => {
    })
 }
 
-type nb = number | boolean
+type nb = number | boolean;
 
 let menu: nb;
 let exit: nb;
@@ -278,15 +278,15 @@ do {
          break;
       }
       case 2: {
-         watchBalance()
+         watchBalance();
          break;
       }
       case 3: {
-         takeMoney()
+         takeMoney();
          break;
       }
       case 4: {
-         addSum()
+         addSum();
          break;
       }
       case 5: {
@@ -295,10 +295,99 @@ do {
          break;
       }
       default: {
-         console.log('error')
+         console.log('error');
          break;
       }
    }
 
 } while (!exit);
+ */
+
+/*
+class User {
+   readonly name:string;
+   age:number;
+
+   constructor(userName:string,userAge:number) {
+      this.name = userName;
+      this.age = userAge;
+   }
+
+   toString():string {
+      return `${this.name} ${this.age}`
+   } 
+}
+
+let user:User = new User("Pasha",14)
+user.name = 'Gosha';
+user.toString()
+*/
+
+/*
+abstract class Figure {
+   abstract x:number;
+   abstract y:number;
+   getArea(): void {
+      console.log("Not results")
+   }
+}
+
+class Rectangle extends Figure {
+   constructor(public x: number,public y: number,public width: number, public height: number) {
+      super()
+   }
+   getArea(): void {
+      console.log(this.width * this.height)
+   }
+}
+
+const rectangle = new Rectangle(4,6,20, 30)
+rectangle.getArea()
+*/
+
+/*
+class User {
+   protected name: string;
+   constructor(name: string) {
+      this.name = name
+   }
+}
+
+class Student extends User {
+   constructor(name: string, private _marks: number[]) {
+      super(name);
+      this._marks = _marks
+   }
+
+   public get marks(): number[] {
+      return this._marks
+   }
+
+   public set marks(m: number[]) {
+      this._marks = m
+   }
+
+   public info(): void {
+      console.log(this.name)
+   }
+}
+
+const student: Student = new Student("Gosha", [5, 7, 4, 3])
+student.marks = [5, 2, 1, 1]
+console.log(student.marks)
+student.info()
+*/
+
+
+class Math_ {
+   static PI: number = 3.98795452;
+   static sum(num1: number, num2: number): number {
+      return num1 + num2
+   }
+}
+
+
+console.log(Math_.sum(4, 8))
+console.log(Math_.PI)
+
 
